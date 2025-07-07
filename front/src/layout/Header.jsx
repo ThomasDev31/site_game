@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { NavLink } from "react-router";
 import styled from "styled-components";
 
 function Header() {
@@ -6,9 +6,9 @@ function Header() {
         <>
             <HeaderStyled>
                 <nav>
-                    <Link to={"/"}>Accueil</Link>
-                    <Link to={"/jeu/mot"}>Pendu</Link>
-                    <Link to={"/jeu/number"}>Juste prix</Link>
+                    <NavLink to={"/"}>Accueil</NavLink>
+                    <NavLink to={"/jeu/mot"}>Pendu</NavLink>
+                    <NavLink to={"/jeu/number"}>Juste prix</NavLink>
                 </nav>
             </HeaderStyled>
         </>
@@ -28,7 +28,17 @@ const HeaderStyled = styled.header`
         justify-content:space-around;
         align-items:center;
         width:100%;
+        a{
+            color:black;
+            border:1px solid red;
+            padding:10px 20px;
+            text-decoration:none;
+            &.active{
+                background-color:red;
+            }
+        }
     }
 `;
 
 export default Header;
+

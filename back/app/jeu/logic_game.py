@@ -3,8 +3,8 @@
 
 def check_game_result(number, nb_mystere):
     if number == nb_mystere:
-        return {"message": "Vous avez gagné", "value": True}
+        return {"message": "Vous avez gagné", "value": True, "number": nb_mystere}
     elif number < nb_mystere:
-        return {"message": "Non, c'est plus"}
+        return {"message": "Non, c'est plus", "number": nb_mystere, "value": False}
     else:
-        return {"message": "Non, c'est moins"}
+        return {"message": "Non, c'est moins", "number": nb_mystere, "value": False}

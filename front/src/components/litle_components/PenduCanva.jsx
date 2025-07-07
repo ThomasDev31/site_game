@@ -10,59 +10,73 @@ function PenduCanva({ life }) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.strokeStyle = "#00000";
 
-
-        ctx.beginPath();
-        ctx.moveTo(50, 100);
-        ctx.lineTo(130, 190);
-        ctx.moveTo(60, 190);
-        ctx.lineTo(60, 10);
-        ctx.lineTo(110, 10);
-        ctx.lineTo(110, 30);
-        ctx.stroke();
-
-        // Draw head
-        if(life <= 5){
+        // Draw gallows
+        if (life < 5) {
             ctx.beginPath();
-            ctx.arc(110, 45, 15, 0, Math.PI * 2);
+
+            ctx.moveTo(60, 150);
+            ctx.lineTo(120, 150);
+
+            ctx.moveTo(120, 150);
+            ctx.lineTo(120, 190);
+
+            ctx.moveTo(120, 150);
+            ctx.lineTo(120, 190);
+
+            ctx.moveTo(90, 10);
+            ctx.lineTo(50, 190);
+
+            ctx.moveTo(60, 150);
+            ctx.lineTo(120, 190);
+            ctx.moveTo(50, 190);
+            ctx.lineTo(120, 190);
+
+            ctx.moveTo(90, 10);
+            ctx.lineTo(150, 10);
+
+            ctx.moveTo(150, 10);
+            ctx.lineTo(150, 45);
             ctx.stroke();
         }
         // Draw body
-        if(life <= 4){
+        if (life < 4) {
             ctx.beginPath();
-            ctx.moveTo(110,60);
-            ctx.lineTo(110,110);
+            ctx.arc(165, 45, 15, 0, Math.PI * 2);
             ctx.stroke();
+           
         }
         // Draw left hand
-        if(life <= 3){
+        if (life < 3) {
             ctx.beginPath();
-            ctx.moveTo(110,70);
-            ctx.lineTo(80,90);
+            ctx.moveTo(165, 60);
+            ctx.lineTo(150, 120);
             ctx.stroke();
         }
         // Draw right hand
-        if(life <= 2){
+        if (life < 2) {
             ctx.beginPath();
-            ctx.moveTo(110,70);
-            ctx.lineTo(140,90);
+            ctx.moveTo(160, 75);
+            ctx.lineTo(130, 95);
+
+            ctx.moveTo(160, 75);
+            ctx.lineTo(190, 95);
             ctx.stroke();
         }
         // Draw left leg
-        if(life <= 1){
+        if (life < 1) {
             ctx.beginPath();
-            ctx.moveTo(110,110);
-            ctx.lineTo(80,130);
+            ctx.moveTo(150, 120);
+            ctx.lineTo(120, 130);
+            ctx.moveTo(150, 120);
+            ctx.lineTo(170, 140);
             ctx.stroke();
         }
         // Draw right leg
-        if(life <= 0){
-            ctx.beginPath();
-            ctx.moveTo(110,110);
-            ctx.lineTo(140,130);
-            ctx.stroke();
-        }
+        // if (life <= 0) {
+            
+        // }
     }, [life]);
 
-    return <canvas ref={canvaRef} width={300} height={200} ></canvas>;
+    return <canvas ref={canvaRef} width={300} height={200}></canvas>;
 }
 export default PenduCanva;
