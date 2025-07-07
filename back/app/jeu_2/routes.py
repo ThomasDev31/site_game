@@ -14,12 +14,15 @@ def jeu_2():
         mot = session.get("mot")
         mot_masque = session.get("mot_masque")
         longueur = session.get("longueur")
+        life = session.get("life")
         mot_hashed = list(mot)
+        
         print(mot)
         
         # Getting my lettre be coming of front-end
         data = request.get_json()
-        lettre = data.get("text").lower()
+        lettre = data.get("lettre").lower()
+        print(lettre)
         try:
             lettre_str = str(lettre)
         except ValueError:
@@ -27,22 +30,31 @@ def jeu_2():
         if lettre_str is None:
             return({"error" : "Lettre non fourni"})
         # Checking the lettre if include in the word
+        lettre_find = False
         for i, l in enumerate(mot_hashed):
             if l == lettre:
                 mot_masque[i] = lettre
-        
+                lettre_find = True
+        if not lettre_find:
+            life -= 1
+        if life == 0:
+            mot_masque = mot_hashed
+            life = 0
+            
         # Restocking word-behind in session for next round
         session["mot_masque"] = mot_masque
-       
-        print(mot_masque)
-        return({"mot_masque" : mot_masque, "longueur": longueur})
+        session["life"] = life
+        print("Life :", life)
+        
+        return({"mot_masque" : mot_masque, "longueur": longueur, "life" : life})
        
         # return jsonify({"message": "ok"})
 
     elif request.method == "GET":
         # appelle du fetch pour récupérer le mot générer par trouve-mot.fr
         result = fetch()
-
+        life = 5
+        print(result)
         # je stocke les données que j'ai besoin dans session pour éviter que cela refasse le fetach à chaque fois. 
         # Le mot
         session['mot'] = result[0][0]["name"]
@@ -50,4 +62,7 @@ def jeu_2():
         session["mot_masque"] = result[3]
         # La longueur du mot
         session['longueur'] = result[2]
-        return  jsonify({"longueur" : result[2], "mot_masque" :result[3]})
+
+        session['life'] = life
+        
+        return  jsonify({"longueur" : result[2], "mot_masque" :result[3], "life" : life})
