@@ -17,36 +17,39 @@ def jeu_2():
         life = session.get("life")
         mot_hashed = list(mot)
         
-        print(mot)
-        
         # Getting my lettre be coming of front-end
         data = request.get_json()
         lettre = data.get("lettre").lower()
-        print(lettre)
+        win = False
+        
         try:
             lettre_str = str(lettre)
         except ValueError:
             return ({"error" : "Lettre invalide"})
         if lettre_str is None:
             return({"error" : "Lettre non fourni"})
+        
+        
         # Checking the lettre if include in the word
         lettre_find = False
         for i, l in enumerate(mot_hashed):
             if l == lettre:
                 mot_masque[i] = lettre
                 lettre_find = True
-        if not lettre_find:
-            life -= 1
-        if life == 0:
+        if life == 1:
             mot_masque = mot_hashed
             life = 0
+            win = True
+        if not lettre_find and life > 0:
+            life -= 1
+       
             
         # Restocking word-behind in session for next round
         session["mot_masque"] = mot_masque
         session["life"] = life
-        print("Life :", life)
         
-        return({"mot_masque" : mot_masque, "longueur": longueur, "life" : life})
+        
+        return({"mot_masque" : mot_masque, "longueur": longueur, "life" : life, "win" : win})
        
         # return jsonify({"message": "ok"})
 
@@ -54,7 +57,6 @@ def jeu_2():
         # appelle du fetch pour récupérer le mot générer par trouve-mot.fr
         result = fetch()
         life = 5
-        print(result)
         # je stocke les données que j'ai besoin dans session pour éviter que cela refasse le fetach à chaque fois. 
         # Le mot
         session['mot'] = result[0][0]["name"]

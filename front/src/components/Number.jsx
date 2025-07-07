@@ -24,7 +24,7 @@ function Number() {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-
+    
     const response = await fetch("http://127.0.0.1:5000/jeu", {
       method: "POST",
       credentials: "include" ,
@@ -35,7 +35,7 @@ function Number() {
     console.log(value);
     setMessage(value.message || "");
   };
-
+  
   useEffect(() => {
     fetchData();
   }, []);
