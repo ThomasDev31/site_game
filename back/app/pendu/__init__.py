@@ -1,5 +1,5 @@
 from flask import Blueprint
 # initialisation de mon print jeu des mots
-jeu_te = Blueprint('jeu_2', __name__)
+game_pendu = Blueprint('pendu', __name__)
 
-from .routes import jeu_2
+from .routes import pendu

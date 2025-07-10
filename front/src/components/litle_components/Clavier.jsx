@@ -43,8 +43,6 @@ function Clavier({ setText, text, handlesubmit, isActive, active, setActive }) {
             return;
         }
         setActive((prev) => [...prev, index]);
-        console.log(text);
-        console.log(active);
     };
 
     return (

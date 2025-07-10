@@ -1,0 +1,10 @@
+# environements
+env/
+venv/
+*.env
+
+# Les pycaches
+__pycache__/
+
+# Ignore les fichiers de log
+*.log

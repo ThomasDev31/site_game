@@ -39,7 +39,7 @@ function Mot() {
     // POST data for back
     const handlesubmit = async (e) => {
         const lettre = text + e;
-        console.log("Reception de la lettre", lettre);
+        
         const response = await fetch("http://127.0.0.1:5000/jeu/mot", {
             method: "POST",
             credentials: "include",
@@ -48,7 +48,6 @@ function Mot() {
         });
         const value = await response.json();
         setData(value);
-        console.log(value);
         if (value.win === true) {
             setIsActive(true);
         }

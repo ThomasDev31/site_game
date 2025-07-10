@@ -7,8 +7,8 @@ function Number() {
     const [loading, setLoading] = useState(true);
     const [number, setNumber] = useState("");
     const [message, setMessage] = useState("");
-    const [count, setCount] = useState(5);
-    const [startTimer, setStartTimer] = useState(false)
+    const [count, setCount] = useState(10);
+    const [startTimer, setStartTimer] = useState(false);
 
 
     const fetchData = async () => {
@@ -29,11 +29,43 @@ function Number() {
         }
     };
 
+    const handleTimeOut = async () => {
+        const response = await fetch("http://127.0.0.1:5000/jeu/number", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ "timeOut": true, number }),
+        });
+        const value = await response.json();
+        setData(value);
+        setMessage(value.message || "");
+        setNumber('')
+    };
+
+    const handlesubmit = async (e) => {
+        e.preventDefault();
+        setStartTimer(true);
+        const response = await fetch("http://127.0.0.1:5000/jeu/number", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ number }),
+        });
+        const value = await response.json();
+        setData(value);
+        if (value.value) {
+            setStartTimer(false);
+        }
+        console.log(value);
+        setMessage(value.message || "");
+        setNumber('')
+    };
+
     useEffect(() => {
-        if(!startTimer) return;
+        if (!startTimer) return;
         if (count <= 0) {
-          setStartTimer(false); 
-          return;
+            setStartTimer(false);
+            return;
         }
 
         const intervalId = setInterval(() => {
@@ -43,27 +75,15 @@ function Number() {
         return () => clearInterval(intervalId);
     }, [startTimer, count]);
 
-    const handlesubmit = async (e) => {
-        e.preventDefault();
-        setStartTimer(true)
-        const response = await fetch("http://127.0.0.1:5000/jeu/number", {
-            method: "POST",
-            credentials: "include",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ number }),
-        });
-        const value = await response.json();
-        setData(value)
-        if(value.value){
-          setStartTimer(false)
-        }
-        console.log(value);
-        setMessage(value.message || "");
-    };
-
     useEffect(() => {
         fetchData();
     }, []);
+
+    useEffect(() => {
+        if (count === 0) {
+            handleTimeOut();
+        }
+    }, [count]);
 
     return (
         <>
@@ -76,11 +96,12 @@ function Number() {
 
                         <div className="content-form">
                             <h3>
-                                Essayer de trouver le prix vous avez {""} <strong>{count > 0 ? count : 0}</strong>s
+                                Essayer de trouver le prix vous avez {""}{" "}
+                                <strong>{count > 0 ? count : 0}</strong>s
                             </h3>
-                            {count <= 0 || data?.value && (
-                              <p>Le prix est {data?.number}</p>
-                            )}
+                            {count <= 0 && data?.value && (
+                                    <p>Le prix est {data?.number}</p>
+                                )}
                             <form onSubmit={handlesubmit}>
                                 <input
                                     type="number"
@@ -93,7 +114,6 @@ function Number() {
                                     type="submit"
                                     value="envoyer"
                                     id="submit"
-                                    
                                 />
                             </form>
                         </div>

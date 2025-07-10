@@ -9,6 +9,7 @@ function Header() {
                     <NavLink to={"/"}>Accueil</NavLink>
                     <NavLink to={"/jeu/mot"}>Pendu</NavLink>
                     <NavLink to={"/jeu/number"}>Juste prix</NavLink>
+                    <NavLink to={"/jeu/flag"}>Jeu des Drapeaux</NavLink>
                 </nav>
             </HeaderStyled>
         </>
