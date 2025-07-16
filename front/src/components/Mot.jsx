@@ -48,9 +48,10 @@ function Mot() {
         });
         const value = await response.json();
         setData(value);
-        if (value.win === true) {
+        if (value.win === true || value.win === false) {
             setIsActive(true);
         }
+        
         setText("");
     };
 
@@ -75,9 +76,14 @@ function Mot() {
                                         <span key={index}>{t}</span>
                                     ))}
                                 </div>
-                                {data.win === true && (
+                                {data.win === false && (
                                     <div>
                                         <p>Vous avez perdu</p>
+                                    </div>
+                                )}
+                                {data.win === true && (
+                                    <div>
+                                        <p>Vous avez Gagné</p>
                                     </div>
                                 )}
                             </div>

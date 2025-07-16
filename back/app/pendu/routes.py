@@ -14,11 +14,11 @@ def pendu():
         longueur = session.get("longueur")
         life = session.get("life")
         mot_hashed = list(mot)
-
+        print(mot_hashed)
         # Getting my lettre be coming of front-end
         data = request.get_json()
         lettre = data.get("lettre").lower()
-        win = False
+        win = None
 
         try:
             lettre_str = str(lettre)
@@ -33,12 +33,14 @@ def pendu():
             if l == lettre:
                 mot_masque[i] = lettre
                 lettre_find = True
-        if life == 1:
-            mot_masque = mot_hashed
-            life = 0
-            win = True
         if not lettre_find and life > 0:
             life -= 1
+        if mot_masque == mot_hashed:
+            win = True
+        if life  == 0:
+            mot_masque = mot_hashed
+            life = 0
+            win = False
 
         # Restocking word-behind in session for next round
         session["mot_masque"] = mot_masque

@@ -10,3 +10,5 @@ https://restcountries.com/v3.1/region/{region}
 
 Pour faire un quizz sur tous les pays:
 https://restcountries.com/v3.1/all?fields=cca2,name
+
+# bug sur la dernière vie avec une bonne lettre problème résolue

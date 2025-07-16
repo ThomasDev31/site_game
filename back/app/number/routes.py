@@ -33,7 +33,7 @@ def jeu_nombre():
         return jsonify(result)
     # Initialisation du nombre qui est a deviné + envoie en json de result true pour lancer le jeu
     elif request.method=="GET":
-        nb_mystere = randint(0, 100)
+        nb_mystere = randint(5000, 30000)
         session['nb'] = nb_mystere
         return jsonify({
             "result": True,
