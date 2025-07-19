@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "./litle_components/Button";
+import Timer from "./litle_components/Timer";
+
 function Number() {
     const [data, setData] = useState();
     const [error, setError] = useState("");
@@ -65,28 +67,13 @@ function Number() {
         setNumber(' ')
     };
 
-    useEffect(() => {
-        if (!startTimer) return;
-        if (count < 0) {
-            setStartTimer(false);
-            return;
-        }
-        const intervalId = setInterval(() => {
-            setCount((prev) => prev - 1);
-        }, 1000);
-        return () => clearInterval(intervalId);
-    }, [startTimer, count]);
+    
 
     useEffect(() => {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        if (count === 0) {
-            handleTimeOut();
-        }
-    }, [count]);
-
+  
     return (
         <>
             {loading && <p>Chargement des données ... </p>}
@@ -100,7 +87,7 @@ function Number() {
                             <div className="content-form">
                                 <h3>
                                     Essayer de trouver le prix vous avez {""}{" "}
-                                    <strong>{count > 0 ? count : 0}</strong>s
+                                   <Timer  count={count} setStartTimer={setStartTimer} startTimer={startTimer} setCount={setCount}/>
                                 </h3>
                                 {data?.value && (
                                     <p>Le prix est {data?.number} €</p>
