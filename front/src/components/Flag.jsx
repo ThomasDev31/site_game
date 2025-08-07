@@ -38,7 +38,6 @@ function Flag() {
             }
             const data = await reponse.json();
             setFlags(data.flag);
-            console.log(data);
         } catch (err) {
             setError(err);
         } finally {
