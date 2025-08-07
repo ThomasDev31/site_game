@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-
+import styled from "styled-components";
 function PenduCanva({ life }) {
     const canvaRef = useRef(null);
 
@@ -77,6 +77,12 @@ function PenduCanva({ life }) {
         // }
     }, [life]);
 
-    return <canvas ref={canvaRef} width={300} height={200}></canvas>;
+    return <Canvas ref={canvaRef} width={300} height={200}></Canvas>;
 }
+
+const Canvas = styled.canvas`
+    @media screen and (max-width:780px) {
+       height:150px; 
+    }
+`
 export default PenduCanva;

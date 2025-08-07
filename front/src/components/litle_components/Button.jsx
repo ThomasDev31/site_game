@@ -10,17 +10,18 @@ function Button({value, clickValue=null}) {
 const SyledButton = styled.button`
     width: 150px;
     margin: auto;
-    margin-top: 30px;
+    margin-top: 10px;
     padding: 10px 10px;
     font-size: 1.5rem;
     font-weight: 500;
-    color: #3a3a3a;
+    color: black;
     outline: none;
-    border: 1px solid gray;
-    border-bottom: 4px solid gray;
-    border-right: 2px solid gray;
+    border: 1px solid #393E41;
+    border-bottom: 4px solid #393E41;
+    border-right: 2px solid #393E41;
     border-radius: 10px;
     background-color: inherit;
+    overflow:hidden;
     cursor: pointer;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
     transition: all 0.3s ease-in-out;

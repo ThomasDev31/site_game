@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
-function Timer({count, startTimer, setStartTimer, setCount, setDisplay}) {
+function Timer({ count, startTimer, setStartTimer, setCount, setDisplayResult, setdisplayTimer, displayTimer, setShowResults, chrono }) {
     
     useEffect(() => {
         if (!startTimer) return;
@@ -8,9 +8,18 @@ function Timer({count, startTimer, setStartTimer, setCount, setDisplay}) {
             setStartTimer(false);
             return;
         }
-        const intervalId = setInterval(() => {
+        setdisplayTimer(true)
+        let intervalId
+        if(chrono){
+            intervalId = setInterval(() => {
+            setCount((prev) => prev + 1);
+        }, 1000);
+        }else{
+            intervalId = setInterval(() => {
             setCount((prev) => prev - 1);
         }, 1000);
+        }
+        
         return () => clearInterval(intervalId);
     }, [startTimer, count]);
 
@@ -20,20 +29,26 @@ function Timer({count, startTimer, setStartTimer, setCount, setDisplay}) {
         return `${min}:${sec}`;
     };
     useEffect(() => {
-        if (count === 0) {
+        if (count === 0 && !chrono) {
             setStartTimer(false)
-            setDisplay(true)
+            setDisplayResult(true)
+            setShowResults(true)
         }
     })
     return (
         <>
-            <P>⏱️ Temps restant : {formatTime(count)}</P>
+            <P className={displayTimer ? "active" : ""}>⏱️ Temps restant : {formatTime(count)}</P>
         </>
     );
 }
 const P = styled.p`
     text-align:center;
     font-size:2rem;
+    display:none;
+    overflow:hidden;
+    &.active{
+        display:block;
+    }
 `
 
 export default Timer;

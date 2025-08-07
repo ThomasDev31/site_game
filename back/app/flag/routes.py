@@ -9,11 +9,11 @@ import random
 def jeu_flag():
     if request.method == "POST":
         region = request.get_json()
-        region = region['e']
+        region = region['region']
         url = ""
 
         if region == "all": 
-            url = "https://restcountries.com/v3.1/all?fields=cca2,translations"
+            url = "https://restcountries.com/v3.1/independent?status=true"
         else : 
             url = f"https://restcountries.com/v3.1/region/{region}"
 
@@ -28,9 +28,7 @@ def jeu_flag():
             for name in data : 
                 flags.append({"id" : name['cca2'].lower(),"name" : name["translations"]["fra"]["common"]})
         random.shuffle(flags)
-        print("Les datas",flags)
-        print("Les regions", region)
-        print(url)
+
 
         return jsonify({"test": "test","flag" :flags})
     return jsonify({"message" : "Bienvenu sur le jeu de drapeaux"})

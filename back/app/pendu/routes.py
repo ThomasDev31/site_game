@@ -12,9 +12,9 @@ def pendu():
         mot = session.get("mot")
         mot_masque = session.get("mot_masque")
         longueur = session.get("longueur")
-        life = session.get("life")
+        life = int(session.get("life"))
         mot_hashed = list(mot)
-        print(mot_hashed)
+
         # Getting my lettre be coming of front-end
         data = request.get_json()
         lettre = data.get("lettre").lower()
@@ -30,9 +30,18 @@ def pendu():
         # Checking the lettre if include in the word
         lettre_find = False
         for i, l in enumerate(mot_hashed):
+            if l in ["é", "è", "ê", "ë"]:
+                    l = "e"
+            elif l in  ["ä", "â"]:
+                    l = "a"
+            elif l in ["ï", "î"]:
+                    l = "i"
+            elif l in ["ü","û"]:
+                    l = "u"
             if l == lettre:
-                mot_masque[i] = lettre
+                mot_masque[i] = mot_hashed[i]
                 lettre_find = True
+                
         if not lettre_find and life > 0:
             life -= 1
         if mot_masque == mot_hashed:
@@ -55,13 +64,40 @@ def pendu():
 
         # return jsonify({"message": "ok"})
 
-    elif request.method == "GET":
+    # elif request.method == "GET":
+    #     # appelle du fetch pour récupérer le mot générer par trouve-mot.fr
+    #     result = fetch()
+    #     life = 5
+    #     # je stocke les données que j'ai besoin dans session pour éviter que cela refasse le fetach à chaque fois.
+    #     # Le mot
+    #     session["mot"] = result[0]
+
+    #     # Le mot masqué ("-")
+    #     session["mot_masque"] = result[3]
+    #     # La longueur du mot
+    #     session["longueur"] = result[2]
+
+    #     session["life"] = life
+
+    #     return jsonify({"longueur": result[2], "mot_masque": result[3], "life": life})
+
+@game_pendu.route("/jeu/mot/param", methods=["GET", "POST"])
+def paramPendu():
+     if request.method == "POST":
+
+        data = request.get_json()
+        life = data.get("life")
+        difficulty = data.get("difficulty")
+
+        print(data)
+
         # appelle du fetch pour récupérer le mot générer par trouve-mot.fr
-        result = fetch()
-        life = 5
+        result = fetch(difficulty)
+        
         # je stocke les données que j'ai besoin dans session pour éviter que cela refasse le fetach à chaque fois.
         # Le mot
-        session["mot"] = result[0][0]["name"]
+        session["mot"] = result[0]
+
         # Le mot masqué ("-")
         session["mot_masque"] = result[3]
         # La longueur du mot
