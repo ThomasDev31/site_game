@@ -171,7 +171,7 @@ const AllElement = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 70vh;
+    height: 80vh;
     overflow: hidden;
     @media screen and (max-width: 780px) {
         height: 90vh;
@@ -186,6 +186,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
+  
     .content {
         display: flex;
         flex-direction: column;
@@ -238,9 +239,11 @@ const ContainerGlobal = styled.div`
     margin-top: 50px;
     background-color: #3f88c5;
     padding: 10px;
+    padding-bottom:0px;
     border-radius: 15px;
     border: 2px solid #393e41;
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.4);
+     height:100vh;
     &.active {
         display: none;
     }

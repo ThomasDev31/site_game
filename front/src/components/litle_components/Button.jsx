@@ -10,7 +10,7 @@ function Button({value, clickValue=null}) {
 const SyledButton = styled.button`
     width: 150px;
     margin: auto;
-    margin-top: 10px;
+
     padding: 10px 10px;
     font-size: 1.5rem;
     font-weight: 500;

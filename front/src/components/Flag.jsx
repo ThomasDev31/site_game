@@ -58,7 +58,7 @@ function Flag() {
         if (region === "all") {
             setCount(600);
         } else {
-            setCount(30);
+            setCount(420);
         }
         if (chrono) {
             setCount(0);
